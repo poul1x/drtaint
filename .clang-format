@@ -1,0 +1,26 @@
+---
+BasedOnStyle: WebKit
+AlignTrailingComments: true
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AlwaysBreakAfterReturnType: TopLevel
+AlignAfterOpenBracket: Align
+AlignEscapedNewlines: Left
+BinPackArguments: true
+BinPackParameters: true
+BreakBeforeBinaryOperators: None
+ColumnLimit: 90
+IndentWidth: 4
+IndentPPDirectives: BeforeHash
+PointerAlignment: Right
+CommentPragmas: '(^ clang-format: )|(\param|\returns|\warning|\ingroup|\author|\date|\related|\relates|\relatesalso|\deprecated|\image|\return|\brief|\attention|\copydoc|\addtogroup|\todo|\tparam|\see|\note|\skip|\skipline|\until|\line|\dontinclude|\include)'
+SortIncludes: false
+MaxEmptyLinesToKeep: 1
+AlignOperands: true
+PenaltyBreakAssignment: 50
+AlwaysBreakTemplateDeclarations: Yes
+PenaltyBreakTemplateDeclaration: 0
+AllowAllArgumentsOnNextLine: true
+
