@@ -1,15 +1,17 @@
 #include "dr_api.h"
 #include "drmgr.h"
 #include "drreg.h"
-#include "drutil.h"
 #include "drsyscall.h"
 
 #include "drtaint.h"
-#include "drtaint_helper.h"
-#include "shadow_memory.h"
+#include "propagation.h"
 #include "shadow_registers.h"
+#include "shadow_memory.h"
 
-#pragma region prototypes
+// TODO: 1. Integrate googletest
+// TODO: 2. Integrate dr_log
+// TODO: 3. Report api errors
+// TODO: 4. Expose drtaint API
 
 static dr_emit_flags_t
 event_app_instruction(void *drcontext, void *tag, instrlist_t *ilist, instr_t *where,
@@ -20,19 +22,14 @@ event_pre_syscall(void *drcontext, int sysnum);
 static void
 event_post_syscall(void *drcontext, int sysnum);
 
-static bool
-propagate_default_isa(void *drcontext, instrlist_t *ilist, instr_t *where,
-                      void *user_data);
-
-extern bool
-propagate_simd_isa(void *drcontext, instrlist_t *ilist, instr_t *where, void *user_data);
-
-#pragma endregion prototypes
-
-#pragma region init_exit
-
 static int drtaint_init_count;
 static client_id_t client_id;
+
+/* ======================================================================================
+ * Main
+ * ==================================================================================== */
+
+#pragma region main
 
 bool
 drtaint_init(client_id_t id)
@@ -80,31 +77,32 @@ drtaint_exit(void)
     drsys_exit();
 }
 
-#pragma endregion init_exit
-
-#pragma region taint_propagation
-
-#pragma endregion taint_propagation
-
-#pragma region event_app_handler
-
-/* ======================================================================================
- * main: event app instruction handler
- * ==================================================================================== */
-
 static dr_emit_flags_t
 event_app_instruction(void *drcontext, void *tag, instrlist_t *ilist, instr_t *where,
                       bool for_trace, bool translating, void *user_data)
 {
+    propagate(drcontext, ilist, where);
+
+    // struct status;
+    // propagate(status);
+    // if status.is_succeeded
+    // return
+    // if status.is_failed
+    // dr_log(status.reason)
+    // return
+    // else propagate_simd(status)
+
     return DR_EMIT_DEFAULT;
 }
 
-#pragma endregion event_app_handler
+#pragma endregion main
+
 
 #pragma region syscall_handling
 
+
 /* ======================================================================================
- * system call clearing and handling routines
+ * System call handling routines
  * ==================================================================================== */
 
 static bool
@@ -119,7 +117,7 @@ drsys_iter_cb(drsys_arg_t *arg, void *drcontext)
     if (arg->pre)
         return true;
 
-    if (TEST(arg->mode, DRSYS_PARAM_OUT)) {
+    if (arg->mode & DRSYS_PARAM_OUT) {
         // app_pc buffer = (app_pc)arg->start_addr;
         // drtaint_set_app_area_taint(drcontext, (app_pc)buffer, arg->size, 0);
     }
@@ -156,3 +154,11 @@ event_post_syscall(void *drcontext, int sysnum)
 }
 
 #pragma endregion syscall_handling
+
+/* ======================================================================================
+ * Implementation of API
+ * ==================================================================================== */
+
+#pragma region api
+
+#pragma endregion api

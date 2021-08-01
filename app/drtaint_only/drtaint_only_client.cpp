@@ -1,7 +1,7 @@
 #include "dr_api.h"
 #include "drmgr.h"
 
-#include "../../core/drtaint.h"
+#include "drtaint.h"
 
 /* This sample application simply runs the drtaint plugin,
  * allowing us to benchmark the performance degradation

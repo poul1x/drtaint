@@ -12,6 +12,8 @@ endif ()
 find_package(DynamoRIO REQUIRED)
 find_package(DrMemoryFramework REQUIRED)
 
+include_directories("core/api")
+
 # # compile client libraries in thumb mode, otherwise it wil crash
 # set(CMAKE_FLAGS_CLI "-mthumb -Wall -Wno-unknown-pragmas -O3")
 

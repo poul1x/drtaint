@@ -6,7 +6,9 @@ drtaint_only_client.cpp
 ../../core/drtaint.cpp
 ../../core/shadow_memory.c
 ../../core/shadow_registers.c
+../../core/shadow_blocks.cpp
 ../../core/drtaint_helper.cpp
+../../core/propagation.cpp
 )
 
 # configuration for client library
