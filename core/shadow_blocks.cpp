@@ -221,7 +221,7 @@ sblocks_iterate_app_read(uint8_t *addr, size_t app_size,
     size_t shadow_size_bits, shadow_size_bytes;
     size_t n_chunks, n_rest, n_block_bits;
     uint8_t *chunk_addr, *block_addr;
-    size_t shadow, taint;
+    size_t shadow;
     size_t i, j;
 
     //
@@ -410,8 +410,8 @@ bool
 sblocks_is_app_non_zero_tainted_ex(uint8_t *addr, size_t size, size_t tbyte)
 {
     find_taint_byte_t find;
+    find.tbyte = (taint_byte_t)tbyte;
     find.addr = NULL;
-    find.tbyte = tbyte;
 
     DR_ASSERT(tbyte > SHADOW_BYTE_MIN_VALUE && tbyte <= SHADOW_BYTE_MAX_VALUE);
     sblocks_iterate_app_taint_read(addr, size, sblocks_iter_find_non_zero_byte, &find);
@@ -432,7 +432,7 @@ sblocks_iterate_app_write(uint8_t *addr, size_t app_size,
     size_t shadow_size_bits, shadow_size_bytes;
     size_t n_chunks, n_rest, n_block_bits;
     uint8_t *chunk_addr, *block_addr;
-    size_t shadow, taint;
+    size_t shadow;
     size_t i, j;
 
     //
@@ -573,8 +573,8 @@ sblocks_set_app_non_zero_taint(uint8_t *addr, size_t size, size_t tbyte)
 
     DR_ASSERT(tbyte > SHADOW_BYTE_MIN_VALUE && tbyte <= SHADOW_BYTE_MAX_VALUE);
 
-    data.tbyte = tbyte;
-    data.tblock = create_taint_block(tbyte);
+    data.tbyte = (taint_byte_t)tbyte;
+    data.tblock = create_taint_block(data.tbyte);
     sblocks_iterate_app_write(addr, size, sblocks_iter_write, &data);
 }
 

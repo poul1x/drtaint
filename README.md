@@ -1,89 +1,38 @@
-drtaint
-===
+# drtaint
 
-# In active development. Not ready to use
+## In active development. It's not yet for practical use.
 
-BUILD
+## Build
 
-```
-git clone repo
-cd repo
-wget -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/release_8.0.0-1/DynamoRIO-ARM-Linux-EABIHF-8.0.0-1.tar.gz
-mkdir dynamorio && tar xvf dynamorio.tar.gz -C dynamorio --strip-components 1
+### Windows
+
+1. Download Visual studio 2017 build tools.
+2. Open `x64 Native Tools Command Prompt for VS 2017`.
+3. Launch `powershell.exe` from there
+4. Then enter commands below:
+
+```powershell
+Invoke-WebRequest `
+	-Uri "https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-8.0.18780/DynamoRIO-Windows-8.0.18780.zip" `
+	-OutFile "dynamorio.zip"
+
+Expand-Archive -Path .\DynamoRIO-Windows-8.0.18780.zip -DestinationPath .\dynamorio\ -Force
+mv .\dynamorio\DynamoRIO-Windows-8.0.18780\* .\dynamorio\
+rm .\dynamorio\DynamoRIO-Windows-8.0.18780
+
+$DYNAMORIO_ROOT="$(pwd)\dynamorio"
 $DYNAMORIO_DIR="$(pwd)\dynamorio\cmake"
 $DRMEMORY_DIR="$(pwd)\dynamorio\drmemory\drmf"
-cmake ../ -DDynamoRIO_DIR="$DYNAMORIO_DIR" -DDrMemoryFramework_DIR="$DRMEMORY_DIR"
-# cmake ../ -G"Ninja" -DDynamoRIO_DIR="$DYNAMORIO_DIR" -DDrMemoryFramework_DIR="$DRMEMORY_DIR" -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
+git clone https://github.com/poul1x/drtaint.git
+cd drtaint
+
+mkdir build
+cd build
+
+# Run this for x64 build
 # cmake ../ -G"Visual Studio 15 Win64" -DDynamoRIO_DIR="$DYNAMORIO_DIR" -DDrMemoryFramework_DIR="$DRMEMORY_DIR"
+# Run this for x86 build
+cmake ../ -DDynamoRIO_DIR="$DYNAMORIO_DIR" -DDrMemoryFramework_DIR="$DRMEMORY_DIR"
 cmake --build . --config Release
 ```
-
-This project is an attempt to improve the drtaint: https://github.com/toshipiazza/drtaint.
-It's still raw, with some bug fixes and new features added.
-
-## Build (Cross compilation on linux host)
-
----
-```bash
-# Install ARM toolchain
-sudo apt-get install gcc-arm-linux-gnueabihf binutils-arm-linux-gnueabihf g++-arm-linux-gnueabihf
-
-# Get prebuilt DynamoRIO package
-wget -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/release_8.0.0-1/DynamoRIO-ARM-Linux-EABIHF-8.0.0-1.tar.gz
-mkdir dynamorio && tar xvf dynamorio.tar.gz -C dynamorio --strip-components 1
-
-# Download and build drtaint
-git clone https://github.com/poul1x/drtaint
-cd drtaint && mkdir build && cd build
-cmake ../ -DDynamoRIO_DIR=../dynamorio/cmake -DDrMemoryFramework_DIR=../dynamorio/drmemory/drmf -DCMAKE_TOOLCHAIN_FILE=toolchain-arm32.cmake
-make
-```
----
-
-## Launch
-
-**Note:** *host* = Linux machine (I've used Ubuntu 18 x32 and WSL), *guest* = Linux on ARM board (I've tested on *BeagleBone Black* and *qemu*).
-
-Assume, you have a board and ssh access to your Linux guest. If not, look at this [manual](/qemu).
-
-On Linux host do:
-
-```bash
-export DRTAINT_HOME="<path-to-drtaint-build-directory>"
-
-# Attributes of your guest ssh server
-export USERNAME="<your-guest-username> (my is debian)"
-export IP="<ip-of-ssh-server> (my is 127.0.0.1)"
-export PORT="<port-of-ssh-server> (my is 10022)"
-
-# Copy drtaint
-scp -P $PORT -rp $DRTAINT_HOME $USERNAME@$IP:~/build
-```
-
-On Linux guest do:
-
-```bash
-# Get prebuilt DynamoRIO package
-cd ~/
-wget -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/release_8.0.0-1/DynamoRIO-ARM-Linux-EABIHF-8.0.0-1.tar.gz
-mkdir dynamorio && tar xvf dynamorio.tar.gz -C dynamorio --strip-components 1
-
-# Setup env
-export BIN32=~/dynamorio/bin32
-export BUILD=~/build
-
-# Launch self-test
-$BIN32/drrun -c $BUILD/libdrtaint_test.so -- $BUILD/drtaint_test_app --all
-
-# Expected output:
-# Results: passed - 33, failed - 8
-# Exitting...
-```
-
-If successfull, you can try other samples:
-
-| Name                                  | Description                                                           |
-| :------------------------------------ | :-------------------------------------------------------------------- |
-| [drtaint only](/app/drtaint_only)     | Empty dynamorio client showing program slowdown running under drtaint |
-| [drtaint test](/app/drtaint_test)     | Developer tool intended to find bugs in DrTaint library               |
-| [drtaint marker](/app/drtaint_marker) | Performs tainted instruction recording                                |

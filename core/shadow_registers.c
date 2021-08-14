@@ -76,7 +76,7 @@ sregs_insert_read_shadow_addr(void *drcontext, instrlist_t *ilist, instr_t *wher
                               reg_id_t reg_num, reg_id_t reg_shadow_addr)
 {
     DR_ASSERT(reg_num - DR_REG_START_GPR < DR_NUM_GPR_REGS);
-    unsigned int offs = offsetof(per_thread_t, gpr[reg_num - DR_REG_START_GPR]);
+    size_t offs = offsetof(per_thread_t, gpr[reg_num - DR_REG_START_GPR]);
 
     /* Load the per_thread data structure holding
      * the thread-local taint values of each register to %reg_shadow_addr%
