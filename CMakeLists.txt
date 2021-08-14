@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.0)
+cmake_minimum_required (VERSION 3.14)
 project (drtaint)
 
 if (NOT DEFINED DynamoRIO_DIR)
@@ -12,6 +12,10 @@ endif ()
 find_package(DynamoRIO REQUIRED)
 find_package(DrMemoryFramework REQUIRED)
 
+set(CMAKE_CXX_STANDARD 11)
+
 include_directories("core/api")
-# add_subdirectory(app/drtaint_test drtaint_test)
+
+add_subdirectory(app/drtaint_test drtaint_test)
 add_subdirectory(app/drtaint_only drtaint_only)
+
