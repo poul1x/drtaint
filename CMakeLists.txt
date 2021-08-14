@@ -13,27 +13,5 @@ find_package(DynamoRIO REQUIRED)
 find_package(DrMemoryFramework REQUIRED)
 
 include_directories("core/api")
-
-# # compile client libraries in thumb mode, otherwise it wil crash
-# set(CMAKE_FLAGS_CLI "-mthumb -Wall -Wno-unknown-pragmas -O3")
-
-# # by default compile client app in arm/thumb2 mode
-# if (Thumb)
-#     set(CMAKE_FLAGS_APP "-mthumb -DMTHUMB -Wall -Wno-unknown-pragmas -Wno-array-bounds")
-# else()
-#     set(CMAKE_FLAGS_APP "-marm -Wall -Wno-unknown-pragmas -Wno-array-bounds")
-# endif (Thumb)
-
-# if (Optimized)
-#     set(CMAKE_FLAGS_APP "${CMAKE_FLAGS_APP} -O2")
-# else()
-#     set(CMAKE_FLAGS_APP "${CMAKE_FLAGS_APP} -O0")
-# endif (Optimized)
-
-# message(STATUS "Drtaint client library build configuration: ${CMAKE_FLAGS_CLI}")
-# message(STATUS "Drtaint client application build configuration: ${CMAKE_FLAGS_APP}")
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-# build projects
 # add_subdirectory(app/drtaint_test drtaint_test)
 add_subdirectory(app/drtaint_only drtaint_only)

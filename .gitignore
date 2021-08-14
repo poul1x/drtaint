@@ -1,4 +1,6 @@
 .vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
 build/*
 compile_commands.json
 compile_commands.txt

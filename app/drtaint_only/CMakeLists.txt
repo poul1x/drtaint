@@ -11,10 +11,6 @@ drtaint_only_client.cpp
 ../../core/propagation.cpp
 )
 
-# configuration for client library
-set(CMAKE_C_FLAGS "${CMAKE_FLAGS_CLI}")
-set(CMAKE_CXX_FLAGS "${CMAKE_FLAGS_CLI}")
-
 configure_DynamoRIO_client(drtaint_only)
 use_DynamoRIO_extension(drtaint_only "drreg")
 use_DynamoRIO_extension(drtaint_only "drmgr")

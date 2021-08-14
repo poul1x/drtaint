@@ -1,0 +1,62 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "Generate compile commands",
+      "windows": {
+        "command": "${workspaceFolder}\\scripts\\win\\compile_commands.ps1"
+      },
+      "linux": {
+        "command": "echo lalala"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Configure",
+      "windows": {
+        "command": "${workspaceFolder}\\scripts\\win\\configure.ps1"
+      },
+      "linux": {
+        "command": "echo lalala"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Build (Debug)",
+      "windows": {
+        "command": "${workspaceFolder}\\scripts\\win\\build.ps1 Debug"
+      },
+      "linux": {
+        "command": "echo lalala"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Build (Release)",
+      "windows": {
+        "command": "${workspaceFolder}\\scripts\\win\\build.ps1 Release"
+      },
+      "linux": {
+        "command": "echo lalala"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Build (RelWithDebInfo)",
+      "windows": {
+        "command": "${workspaceFolder}\\scripts\\win\\build.ps1 RelWithDebInfo"
+      },
+      "linux": {
+        "command": "echo lalala"
+      },
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

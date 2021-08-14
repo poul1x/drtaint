@@ -11,6 +11,5 @@
 
 void propagate(void *drcontext, instrlist_t *ilist, instr_t *where)
 {
-	OP_aaa
 
 }

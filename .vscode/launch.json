@@ -1,0 +1,129 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "request": "launch",
+      "type": "PowerShell",
+      "cwd": "${workspaceFolder}",
+      "name": "Run drtaint_only (Windows, Debug)",
+      "script": "${workspaceFolder}\\scripts\\win\\run.ps1",
+      "args": [
+        "-BuildMode",
+        "Debug",
+        "-ClientName",
+        "drtaint_only",
+        "-AppCommand",
+        "cmd.exe"
+      ]
+    },
+    {
+      "request": "launch",
+      "type": "PowerShell",
+      "cwd": "${workspaceFolder}",
+      "name": "Run drtaint_only (Windows, RelWithDebInfo)",
+      "script": "${workspaceFolder}\\scripts\\win\\run.ps1",
+      "args": [
+        "-BuildMode",
+        "RelWithDebInfo",
+        "-ClientName",
+        "drtaint_only",
+        "-AppCommand",
+        "cmd.exe"
+      ]
+    },
+    {
+      "request": "launch",
+      "type": "PowerShell",
+      "cwd": "${workspaceFolder}",
+      "name": "Run drtaint_only (Windows, Release)",
+      "script": "${workspaceFolder}\\scripts\\win\\run.ps1",
+      "args": [
+        "-BuildMode",
+        "Release",
+        "-ClientName",
+        "drtaint_only",
+        "-AppCommand",
+        "cmd.exe"
+      ]
+    },
+    {
+      "request": "launch",
+      "type": "PowerShell",
+      "cwd": "${workspaceFolder}",
+      "name": "Run drtaint_test (Windows, Debug)",
+      "script": "${workspaceFolder}\\scripts\\win\\run.ps1",
+      "args": [
+        "-BuildMode",
+        "Debug",
+        "-ClientName",
+        "drtaint_test",
+        "-AppCommand",
+        "cmd.exe"
+      ]
+    },
+    {
+      "request": "launch",
+      "type": "PowerShell",
+      "cwd": "${workspaceFolder}",
+      "name": "Run drtaint_test (Windows, RelWithDebInfo)",
+      "script": "${workspaceFolder}\\scripts\\win\\run.ps1",
+      "args": [
+        "-BuildMode",
+        "RelWithDebInfo",
+        "-ClientName",
+        "drtaint_test",
+        "-AppCommand",
+        "cmd.exe"
+      ]
+    },
+    {
+      "request": "launch",
+      "type": "PowerShell",
+      "cwd": "${workspaceFolder}",
+      "name": "Run drtaint_test (Windows, Release)",
+      "script": "${workspaceFolder}\\scripts\\win\\run.ps1",
+      "args": [
+        "-BuildMode",
+        "Release",
+        "-ClientName",
+        "drtaint_test",
+        "-AppCommand",
+        "cmd.exe"
+      ]
+    }
+  ]
+}
+
+// {
+// 	"type": "shell",
+// 	"label": "Run (Debug)",
+// 	"windows": {
+// 		"command": ". .\\scripts\\win\\common.ps1; .\\scripts\\win\\run.ps1 Debug"
+// 	},
+// 	"linux": {
+// 		"command": "echo lalala"
+// 	}
+// },
+// {
+// 	"type": "shell",
+// 	"label": "Run (Release)",
+// 	"windows": {
+// 		"command": ". .\\scripts\\win\\common.ps1; .\\scripts\\win\\run.ps1 Release"
+// 	},
+// 	"linux": {
+// 		"command": "echo lalala"
+// 	}
+// },
+// {
+// 	"type": "shell",
+// 	"label": "Run (RelWithDebInfo)",
+// 	"windows": {
+// 		"command": ". .\\scripts\\win\\common.ps1; .\\scripts\\win\\run.ps1 RelWithDebInfo"
+// 	},
+// 	"linux": {
+// 		"command": "echo lalala"
+// 	}
+// }
